@@ -27,9 +27,12 @@ public class Board {
                 if (board[row][column] == '_') {
                     return false;
                 }
-                return true;
             }
         }
+        return true;
+    }
+    public char[][] getBoard() {
+        return board;
     }
 }
 
