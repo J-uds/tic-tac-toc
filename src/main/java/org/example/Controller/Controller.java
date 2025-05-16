@@ -9,9 +9,9 @@ public class Controller {
     private View view;
     private char currentPlayer;
 
-    public Controller( Board board, View view) {
-        this.board = board;
-        this.view = view;
+    public Controller() {
+        this.board = new Board();
+        this.view = new View();
         this.currentPlayer = 'X';
     }
 
@@ -24,6 +24,7 @@ public class Controller {
     }
 
     public void startGame() {
-
+        view.showMessage("Juguemos tic tac toe\nEl tablero se compone de fila 0 - 1 y 2 y de columna 0 - 1 y 2");
+        view.displayBoard(board);
     }
 }
