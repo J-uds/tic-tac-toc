@@ -14,13 +14,21 @@ public class View {
                 System.out.print(grid[row][column] + " ");
             }
             System.out.println();
-
-
         }
-
     }
 
     public void showMessage(String message){
         System.out.println(message);
+    }
+    public int[] askForMove(char currentPlayer) {
+        System.out.println("Turno: " + currentPlayer);
+        System.out.print("Selecciona una fila y una columna: ");
+        int row = scanner.nextInt();
+        int column = scanner.nextInt();
+        return new int[] { row, column };
+    }
+
+    public void close() {
+        scanner.close();
     }
 }
