@@ -1,5 +1,6 @@
 package org.example.models;
 
+import org.example.view.View;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,20 +8,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
-Board board;
+    Board board;
 
     @BeforeEach
     void setUp() {
-       board = new Board();
+        board = new Board();
     }
 
     @AfterEach
     void tearDown() {
+        // Aquí puedes limpiar recursos si necesitas, pero no es obligatorio
     }
-
-   /* @Test
-    void initializeBoard() {
-    } */
 
     @Test
     void isCellEmpty() {
@@ -32,25 +30,30 @@ Board board;
         assertFalse(board.isFull());
     }
 
-    @Test
-    void placeMove() {
-    }
-
-    @Test
+      @Test
     void checkWinner() {
         board.placeMove(0, 0, 'X');
         board.placeMove(0, 1, 'X');
         board.placeMove(0, 2, 'X');
         assertEquals('X', board.checkWinner());
 
-        board.placeMove(0, 0, 'О');
-        board.placeMove(0, 1, 'О');
-        board.placeMove(0, 2, 'О');
-        assertEquals('О', board.checkWinner());
+        board = new Board();
 
+        board.placeMove(0, 0, 'O');
+        board.placeMove(0, 1, 'O');
+        board.placeMove(0, 2, 'O');
+        assertEquals('O', board.checkWinner());
     }
 
     @Test
-    void getBoard() {
+    void placeMove() {
+        board.placeMove(1, 2, 'X');
+        assertEquals('X',board.getBoard()[1][2]);
+        }
     }
-}
+
+
+
+
+
+
