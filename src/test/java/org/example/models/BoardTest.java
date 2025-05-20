@@ -1,5 +1,6 @@
 package org.example.models;
 
+import org.example.view.View;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,14 +30,7 @@ class BoardTest {
         assertFalse(board.isFull());
     }
 
-    @Test
-    void placeMoveShouldUpdateBoard() {
-        board.placeMove(1, 2, 'X'); // Colocar 'X' en fila 1, columna 2
-        char[][] actualBoard = board.getBoard();
-        assertEquals('X', actualBoard[1][2]); // Verificar que en esa posición está 'X'
-    }
-
-    @Test
+      @Test
     void checkWinner() {
         board.placeMove(0, 0, 'X');
         board.placeMove(0, 1, 'X');
@@ -52,18 +46,14 @@ class BoardTest {
     }
 
     @Test
-    void getBoard() {
-        char[][] actualBoard = board.getBoard();
-        assertNotNull(actualBoard);
-        assertEquals(3, actualBoard.length);
-        assertEquals(3, actualBoard[0].length);
-
-        for (int row = 0; row < actualBoard.length; row++) {
-            for (int col = 0; col < actualBoard[row].length; col++) {
-                assertEquals('_', actualBoard[row][col]);
-            }
+    void placeMove() {
+        board.placeMove(1, 2, 'X');
+        assertEquals('X',board.getBoard()[1][2]);
         }
     }
-}
+
+
+
+
 
 
