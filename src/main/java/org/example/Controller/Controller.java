@@ -24,15 +24,42 @@ public class Controller {
     }
 
     public void startGame() {
+        boolean gameOver = false;
+
         view.showMessage("Juguemos tic tac toe\nEl tablero se compone de fila 0 - 1 y 2 y de columna 0 - 1 y 2");
         view.displayBoard(board);
-        int[] playerMove = view.askForMove(currentPlayer);
-        int row = playerMove[0];
-        int column = playerMove[1];
-        if (!board.isCellEmpty(row, column)){
-            view.showMessage("La posición está ocupada");
+
+        while (!gameOver) {
+            int[] move = view.askForMove(currentPlayer);
+            int row = move[0];
+            int col = move[1];
+
+            if (row < 0 || row >= 3 || col < 0 || col >= 3) {
+                view.showMessage("Coordenadas fuera de rango. Intenta de nuevo.");
+                continue;
+            }
+
+            if (!board.isCellEmpty(row, col)) {
+                view.showMessage("Esa celda ya está ocupada. Intenta otra vez.");
+                continue;
+            }
+
+            board.placeMove(row, col, currentPlayer);
+            view.displayBoard(board);
+
+            char winner = board.checkWinner();
+
+            if (winner != '_') {
+                view.showMessage("¡Ganador: " + winner + "!");
+                gameOver = true;
+            } else if (board.isFull()) {
+                view.showMessage("¡Empate!");
+                gameOver = true;
+            } else {
+                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+            }
         }
+
+        view.close();
     }
-
-
 }

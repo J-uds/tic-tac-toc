@@ -1,0 +1,66 @@
+package org.example.view;
+
+import org.example.models.Board;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ViewTest {
+
+    @BeforeEach
+    void setUp() {
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @Test
+    void displayBoard() {
+        Board board = new Board();
+        View view = new View();
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        view.displayBoard(board);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("_"));
+        System.setOut(System.out);
+    }
+
+    @Test
+    void showMessage() {
+        View view = new View();
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        view.showMessage("Test");
+        String output = outContent.toString();
+        assertTrue(output.contains("Test"));
+        System.setOut(System.out);
+    }
+
+    @Test
+    void askForMove() {
+        String simulatedInput = "1 2\n";
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        View view = new View();
+        int[] result = view.askForMove('X');
+        assertEquals(1, result[0]);
+        assertEquals(2, result[1]);
+        System.setIn(System.in);
+    }
+
+    @Test
+    void close() {
+        View view = new View();
+        assertDoesNotThrow(view::close);
+    }
+}
