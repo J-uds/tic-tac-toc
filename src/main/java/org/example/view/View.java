@@ -24,11 +24,23 @@ public class View {
     public int[] askForMove(char currentPlayer) {
         System.out.println("Turno: " + currentPlayer);
         System.out.print("Selecciona una fila y una columna: ");
-        int row = scanner.nextInt();
-        int column = scanner.nextInt();
-        return new int[]{row, column};
-    }
 
+        while (true) {
+            String input = scanner.nextLine().trim();
+            String[] parts = input.split("\\s+");
+            if (parts.length != 2) {
+                System.out.println("Por favor, introduce exactamente dos números separados por espacio.");
+                continue;
+            }
+            try {
+                int row = Integer.parseInt(parts[0]);
+                int column = Integer.parseInt(parts[1]);
+                return new int[]{row, column};
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Solo se permiten números.");
+            }
+        }
+    }
     public void close() {
         scanner.close();
     }

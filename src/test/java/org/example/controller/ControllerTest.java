@@ -31,7 +31,7 @@ class ControllerTest {
 
             Board board = new Board();
             View view = new View();
-            Controller controller = new Controller();
+            Controller controller = new Controller(board, view);
             controller.startGame();
 
             String output = simulatedOut.toString();
