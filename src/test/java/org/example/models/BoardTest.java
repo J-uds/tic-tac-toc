@@ -1,6 +1,5 @@
 package org.example.models;
 
-import org.example.view.View;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,9 +47,22 @@ class BoardTest {
     @Test
     void placeMove() {
         board.placeMove(1, 2, 'X');
-        assertEquals('X',board.getBoard()[1][2]);
-        }
+        assertEquals('X', board.getBoard()[1][2]);
+
     }
+
+    @Test
+    void testWinnerOnDiagonal() {
+        Board board = new Board();
+        board.getBoard()[0][0] = 'X';
+        board.getBoard()[1][1] = 'X';
+        board.getBoard()[2][2] = 'X';
+        assertEquals('X', board.checkWinner());
+    }
+    }
+
+
+
 
 
 

@@ -79,5 +79,6 @@ public class Board {
     public char[][] getBoard() {
         return board;
     }
+
 }
 
