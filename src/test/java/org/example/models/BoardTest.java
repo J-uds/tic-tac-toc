@@ -1,6 +1,5 @@
 package org.example.models;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,26 +13,22 @@ class BoardTest {
         board = new Board();
     }
 
-    @AfterEach
-    void tearDown() {
-        // Aquí puedes limpiar recursos si necesitas, pero no es obligatorio
+    @Test
+    void testIsCellEmpty() {
+        assertTrue(board.isCellEmpty(0, 0));
     }
 
     @Test
-    void isCellEmpty() {
-        assertTrue(board.isCellEmpty(0,0));
-    }
-
-    @Test
-    void isFull() {
+    void testIsFull() {
         assertFalse(board.isFull());
     }
 
-      @Test
-    void checkWinner() {
+    @Test
+    void testCheckWinner() {
         board.placeMove(0, 0, 'X');
         board.placeMove(0, 1, 'X');
         board.placeMove(0, 2, 'X');
+
         assertEquals('X', board.checkWinner());
 
         board = new Board();
@@ -45,10 +40,9 @@ class BoardTest {
     }
 
     @Test
-    void placeMove() {
+    void testPlaceMove() {
         board.placeMove(1, 2, 'X');
         assertEquals('X', board.getBoard()[1][2]);
-
     }
 
     @Test
@@ -59,7 +53,7 @@ class BoardTest {
         board.getBoard()[2][2] = 'X';
         assertEquals('X', board.checkWinner());
     }
-    }
+}
 
 
 

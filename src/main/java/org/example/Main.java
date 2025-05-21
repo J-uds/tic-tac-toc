@@ -1,13 +1,14 @@
 package org.example;
 
-import org.example.Controller.Controller;
+import org.example.controller.Controller;
+import org.example.models.Board;
+import org.example.view.View;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Controller controller = new Controller();
+        Board board = new Board();
+        View view = new View();
+        Controller controller = new Controller(board, view);
         controller.startGame();
-
     }
 }

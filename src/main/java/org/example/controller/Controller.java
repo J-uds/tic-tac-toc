@@ -1,4 +1,4 @@
-package org.example.Controller;
+package org.example.controller;
 
 import org.example.models.Board;
 
@@ -9,9 +9,9 @@ public class Controller {
     private View view;
     private char currentPlayer;
 
-    public Controller() {
-        this.board = new Board();
-        this.view = new View();
+    public Controller(Board board, View view) {
+        this.board = board;
+        this.view = view;
         this.currentPlayer = 'X';
     }
 
@@ -59,7 +59,6 @@ public class Controller {
                 currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
             }
         }
-
         view.close();
     }
 }

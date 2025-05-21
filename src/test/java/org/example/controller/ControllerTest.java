@@ -1,4 +1,4 @@
-package org.example.Controller;
+package org.example.controller;
 
 import org.example.models.Board;
 import org.example.view.View;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ControllerTest {
 
     @Test
-    void startGame() {
+    void testStartGame() {
         String simulatedInput = String.join(System.lineSeparator(),
                 "0 0",
                 "1 1",
@@ -31,7 +31,7 @@ class ControllerTest {
 
             Board board = new Board();
             View view = new View();
-            Controller controller = new Controller();
+            Controller controller = new Controller(board, view);
             controller.startGame();
 
             String output = simulatedOut.toString();
