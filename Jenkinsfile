@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_BUILDKIT = '1'
-        IMAGE_NAME = 'docker/tic-tac-toe'
-        DOCKER_CREDENTIALS_ID = 'Credencial-DockerHub' // ID de tus credenciales en Jenkins
+        DOCKER_BUILDKIT = '0'                            // Desactiva BuildKit
+        IMAGE_NAME = 'judsdev/tic-tac-toe'               // Cambia por tu usuario real de DockerHub
     }
 
     stages {
@@ -19,17 +18,18 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("${IMAGE_NAME}:latest")
+                    sh 'docker build -t $IMAGE_NAME:latest .'
                 }
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
-                        docker.image("${IMAGE_NAME}:latest").push()
-                    }
+                withCredentials([usernamePassword(credentialsId: 'Credencial-DockerHub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    sh '''
+                        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                        docker push $IMAGE_NAME:latest
+                    '''
                 }
             }
         }
