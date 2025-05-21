@@ -12,7 +12,7 @@ public class Board {
     public void initializeBoard() {
         for (int row = 0; row < size; row++) {
             for (int column = 0; column < size; column++) {
-                board [row][column] = '_';
+                board[row][column] = '_';
             }
         }
     }
@@ -46,7 +46,6 @@ public class Board {
                 return board[0][i];
             }
         }
-
         return '_';
     }
 
@@ -58,7 +57,6 @@ public class Board {
         if (board[0][2] != '_' && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
             return board[0][2];
         }
-
         return '_';
     }
 
@@ -72,13 +70,11 @@ public class Board {
         if (result != '_') {
             return result;
         }
-
         return '_';
     }
 
     public char[][] getBoard() {
         return board;
     }
-
 }
 

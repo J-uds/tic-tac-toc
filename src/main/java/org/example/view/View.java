@@ -5,10 +5,10 @@ import org.example.models.Board;
 import java.util.Scanner;
 
 public class View {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
-    public void displayBoard (Board board) {
-        char [][] grid = board.getBoard();
+    public void displayBoard(Board board) {
+        char[][] grid = board.getBoard();
         for (int row = 0; row < grid.length; row++) {
             for (int column = 0; column < grid[row].length; column++) {
                 System.out.print(grid[row][column] + " ");
@@ -17,15 +17,16 @@ public class View {
         }
     }
 
-    public void showMessage(String message){
+    public void showMessage(String message) {
         System.out.println(message);
     }
+
     public int[] askForMove(char currentPlayer) {
         System.out.println("Turno: " + currentPlayer);
         System.out.print("Selecciona una fila y una columna: ");
         int row = scanner.nextInt();
         int column = scanner.nextInt();
-        return new int[] { row, column };
+        return new int[]{row, column};
     }
 
     public void close() {

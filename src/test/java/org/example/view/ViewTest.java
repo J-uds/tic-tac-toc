@@ -12,19 +12,16 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ViewTest {
+    View view;
 
     @BeforeEach
     void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
+        view = new View();
     }
 
     @Test
-    void displayBoard() {
+    void testDisplayBoard() {
         Board board = new Board();
-        View view = new View();
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -37,8 +34,7 @@ class ViewTest {
     }
 
     @Test
-    void showMessage() {
-        View view = new View();
+    void testShowMessage() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         view.showMessage("Test");
@@ -48,7 +44,7 @@ class ViewTest {
     }
 
     @Test
-    void askForMove() {
+    void testAskForMove() {
         String simulatedInput = "1 2\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
         View view = new View();
@@ -59,8 +55,7 @@ class ViewTest {
     }
 
     @Test
-    void close() {
-        View view = new View();
+    void testClose() {
         assertDoesNotThrow(view::close);
     }
 }

@@ -1,4 +1,4 @@
-package org.example.Controller;
+package org.example.controller;
 
 import org.example.models.Board;
 
@@ -59,7 +59,6 @@ public class Controller {
                 currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
             }
         }
-
         view.close();
     }
 }
