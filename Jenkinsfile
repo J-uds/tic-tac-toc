@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials-id' // Cambia por el ID real de tus credenciales en Jenkins
-        IMAGE_NAME = 'alexandracoder/tic-tac-toe'
+        IMAGE_NAME = 'docker/tic-tac-toe'       // usuarioDocker/nombreImagen
         IMAGE_TAG = 'latest'
+        DOCKER_HUB_CREDENTIALS = 'docker'       // id de las credenciales Docker configuradas en Jenkins
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Push Docker Image') {
             steps {
                 script {
