@@ -1,31 +1,22 @@
-# syntax=docker/dockerfile:1
-
+# Etapa de dependencias
 FROM eclipse-temurin:21-jdk-jammy AS deps
-
 WORKDIR /build
+COPY mvnw mvnw
+RUN chmod 0755 mvnw
+COPY .mvn .mvn
+COPY pom.xml .
+RUN ./mvnw dependency:go-offline -B
 
-COPY --chmod=0755 mvnw mvnw
-COPY .mvn/ .mvn/
+# Etapa de compilación
+FROM eclipse-temurin:21-jdk-jammy AS build
+WORKDIR /app
+COPY --from=deps /build /app
+COPY src src
+RUN ./mvnw package -DskipTests
 
-RUN --mount=type=bind,source=pom.xml,target=pom.xml \
-    --mount=type=cache,target=/root/.m2 ./mvnw dependency:go-offline -DskipTests
-
-FROM deps AS package
-
-WORKDIR /build
-
-COPY ./src src/
-RUN --mount=type=bind,source=pom.xml,target=pom.xml \
-    --mount=type=cache,target=/root/.m2 \
-    ./mvnw package -DskipTests && \
-    mv target/$(./mvnw help:evaluate -Dexpression=project.artifactId -q -DforceStdout)-$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout).jar target/app.jar
-
-FROM eclipse-temurin:21-jre-jammy AS final
-
-ARG UID=10001
-RUN adduser --disabled-password --gecos "" --home "/nonexistent" --shell "/sbin/nologin" --no-create-home --uid "${UID}" appuser
-USER appuser
-
-COPY --from=package /build/target/app.jar app.jar
-
+# Etapa final
+FROM eclipse-temurin:21-jdk-jammy
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
