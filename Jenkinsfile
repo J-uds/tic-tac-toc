@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_BUILDKIT = '0'                            // Desactiva BuildKit
-        IMAGE_NAME = 'judsdev/tic-tac-toe'               // Cambia por tu usuario real de DockerHub
+        IMAGE_NAME = 'alexandracoder/tic-tac-toe'               // Cambia por tu usuario real de DockerHub
     }
 
     stages {
